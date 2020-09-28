@@ -3,7 +3,8 @@ FROM haskell:8.10.1-buster
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
 
-RUN mkdir /projects ${HOME} && \
+RUN apt update && apt install -y wget && \
+    mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
