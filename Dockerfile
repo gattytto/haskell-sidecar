@@ -11,8 +11,7 @@ ENV STACK_RELEASE_KEY=2C6A674E85EE3FB896AFC9B965101FF31C5C154D
 
 ENV PATH ${HOME}.cabal/bin:${HOME}.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin:$PATH
 
-RUN mv /root/* /home/theia/ && \
-    apt update && apt install -y wget && \
+RUN apt update && apt install -y wget && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
     # Change permissions to let any arbitrary user
