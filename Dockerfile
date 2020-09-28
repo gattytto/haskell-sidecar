@@ -1,6 +1,7 @@
 FROM haskell:8.10.1-buster
 
 ENV HOME=/home/theia
+ENV STACK_ROOT=${HOME}/.stack
 
 RUN mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
