@@ -27,7 +27,7 @@ RUN mv /root/* /home/theia/ && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     rm -f *.gz &&
-    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
+    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. 
     
     
 ADD etc/entrypoint.sh /entrypoint.sh
