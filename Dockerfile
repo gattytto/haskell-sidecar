@@ -9,7 +9,8 @@ RUN mkdir /projects ${HOME} && \
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
-    done
+    done && \
+    echo "allow-different-user: true" >> /home/theia/.stack/config.yaml
     
 ADD etc/entrypoint.sh /entrypoint.sh
 
