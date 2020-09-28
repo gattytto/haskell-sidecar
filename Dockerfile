@@ -11,7 +11,8 @@ ENV STACK_RELEASE_KEY=2C6A674E85EE3FB896AFC9B965101FF31C5C154D
 
 ENV PATH ${HOME}.cabal/bin:${HOME}.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin:$PATH
 
-RUN apt update && apt install -y wget && \
+RUN mv /root/* /home/theia/ && \
+    apt update && apt install -y wget && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
     # Change permissions to let any arbitrary user
@@ -25,7 +26,9 @@ RUN apt update && apt install -y wget && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-wrapper-Linux.gz && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
-    rm -f *.gz 
+    rm -f *.gz &&
+    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
+    
     
 ADD etc/entrypoint.sh /entrypoint.sh
 
