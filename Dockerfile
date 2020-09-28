@@ -20,6 +20,7 @@ RUN apt update && apt install -y wget && \
       chmod -R g+rwX ${f}; \
     done && \
     echo "allow-different-user: true" >> /home/theia/.stack/config.yaml && \
+    cabal update && \
     #stack upgrade && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-Linux-8.10.2.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-wrapper-Linux.gz && \
