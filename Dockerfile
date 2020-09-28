@@ -1,4 +1,4 @@
-FROM haskell:8.8.4-buster
+FROM haskell:8.10.1-buster
 
 ENV HOME=/home/theia
 
