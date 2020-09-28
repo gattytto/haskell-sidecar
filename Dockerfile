@@ -10,7 +10,8 @@ RUN mkdir /projects ${HOME} && \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
     done && \
-    echo "allow-different-user: true" >> /home/theia/.stack/config.yaml
+    echo "allow-different-user: true" >> /home/theia/.stack/config.yaml && \
+    stack upgrade
     
 ADD etc/entrypoint.sh /entrypoint.sh
 
