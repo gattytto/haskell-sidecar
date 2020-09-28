@@ -20,13 +20,13 @@ RUN apt update && apt install -y wget && \
       chmod -R g+rwX ${f}; \
     done && \
     echo "allow-different-user: true" >> /home/theia/.stack/config.yaml && \
-    stack upgrade && \
+    #stack upgrade && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-Linux-8.10.2.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-wrapper-Linux.gz && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     rm -f *.gz && \
-    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. 
+    git clone https://github.com/haskell/ghcide.git && cd ghcide && cabal install && cd .. 
     
     
 ADD etc/entrypoint.sh /entrypoint.sh
