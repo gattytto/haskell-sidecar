@@ -24,6 +24,7 @@ RUN apt update && apt install -y wget && \
     echo "    - name: HackageOrig" >> /home/theia/.stack/config.yaml && \
     echo "      download-prefix: https://hackage.haskell.org/package/" >> /home/theia/.stack/config.yaml && \
     echo "      http: https://hackage.haskell.org/00-index.tar.gz" >> /home/theia/.stack/config.yaml && \
+    cabal update && \
     #cabal update --with-ghc ghc-tinfo6-8.6.4 && \
     #stack upgrade && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-Linux-8.10.2.gz && \
