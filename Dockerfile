@@ -21,7 +21,7 @@ RUN apt update && apt install -y wget && \
     echo "      http: https://hackage.haskell.org/00-index.tar.gz" >> /home/theia/.stack/config.yaml && \
     cabal update && \
     # Change permissions to let any arbitrary user
-    for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
+    for f in "${HOME}" "/etc/passwd" "/projects" "/opt" "/home/theia/.stack/config.yaml"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
     done && \
