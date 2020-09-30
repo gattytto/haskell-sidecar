@@ -14,17 +14,17 @@ ENV PATH ${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/
 RUN apt update && apt install -y wget && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
-    # Change permissions to let any arbitrary user
-    for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
-      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
-      chmod -R g+rwX ${f}; \
-    done && \
     echo "allow-different-user: true" >> /home/theia/.stack/config.yaml && \
     echo "package-indices:" >> /home/theia/.stack/config.yaml && \
     echo "    - name: HackageOrig" >> /home/theia/.stack/config.yaml && \
     echo "      download-prefix: https://hackage.haskell.org/package/" >> /home/theia/.stack/config.yaml && \
     echo "      http: https://hackage.haskell.org/00-index.tar.gz" >> /home/theia/.stack/config.yaml && \
     cabal update && \
+    # Change permissions to let any arbitrary user
+    for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
+      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
+      chmod -R g+rwX ${f}; \
+    done && \
     #cabal update --with-ghc ghc-tinfo6-8.6.4 && \
     #stack upgrade && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-Linux-8.10.2.gz && \
