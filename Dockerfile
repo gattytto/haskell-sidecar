@@ -15,7 +15,7 @@ RUN apt update && apt install -y wget && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack 
     
-ADD etc/settings.yaml /home/theia/.stack/settings.yaml
+ADD etc/settings.yaml /home/theia/.stack/config.yaml
 
 RUN cabal update && \
     # Change permissions to let any arbitrary user
