@@ -9,7 +9,7 @@ ENV STACK=2.3.3
 ENV STACK_KEY=C5705533DA4F78D8664B5DC0575159689BEFB442
 ENV STACK_RELEASE_KEY=2C6A674E85EE3FB896AFC9B965101FF31C5C154D
 
-ENV PATH ${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
+ENV PATH /usr/bin:/bin:/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
 
 RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev && \
     mkdir /projects ${HOME} && \
