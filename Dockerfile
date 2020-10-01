@@ -13,7 +13,7 @@ ENV PATH ${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/
 
 RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev && \
     mkdir /projects ${HOME} && \
-    mkdir -p ${HOME}/.stack 
+    mkdir -p ${HOME}/.stack && \
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
     chmod +x /usr/bin/ghcup 
     
