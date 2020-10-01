@@ -11,7 +11,7 @@ ENV STACK_RELEASE_KEY=2C6A674E85EE3FB896AFC9B965101FF31C5C154D
 
 ENV PATH ${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin:$PATH
 
-RUN apt update && apt install -y wget sudo && \
+RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack 
     
