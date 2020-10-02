@@ -17,8 +17,6 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
     chmod +x /usr/bin/ghcup 
     
-ADD etc/settings.yaml /home/theia/.stack/config.yaml
-
 RUN cabal update && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt" "/home/theia/.stack/config.yaml"; do \
@@ -37,6 +35,7 @@ RUN cabal update && \
     
     
 ADD etc/entrypoint.sh /entrypoint.sh
+ADD etc/settings.yaml /home/theia/.stack/config.yaml
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
