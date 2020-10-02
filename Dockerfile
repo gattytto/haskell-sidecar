@@ -19,7 +19,7 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     
 RUN cabal update && \
     # Change permissions to let any arbitrary user
-    for f in "${HOME}" "/etc/passwd" "/projects" "/opt" "/home/theia/.stack/config.yaml"; do \
+    for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
     done && \
