@@ -14,15 +14,11 @@ ENV PATH /usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.loc
 RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
+    mkdir -p ${HOME}/.cabal && \
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
     chmod +x /usr/bin/ghcup 
     
 RUN cabal update && \
-    # Change permissions to let any arbitrary user
-    for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
-      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
-      chmod -R g+rwX ${f}; \
-    done && \
     #cabal update --with-ghc ghc-tinfo6-8.6.4 && \
     #stack upgrade && \
     wget https://github.com/haskell/haskell-language-server/releases/download/0.4.0/haskell-language-server-Linux-8.10.2.gz && \
@@ -31,8 +27,12 @@ RUN cabal update && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server-Linux-8.10.2 && chmod +x /usr/bin/haskell-language-server-Linux-8.10.2 && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     rm -f *.gz && \
-    git clone https://github.com/haskell/ghcide.git && cd ghcide && cabal install && cd .. 
-    
+    git clone https://github.com/haskell/ghcide.git && cd ghcide && cabal install && cd .. && \
+    # Change permissions to let any arbitrary user
+    for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
+      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
+      chmod -R g+rwX ${f}; \
+    done
     
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
