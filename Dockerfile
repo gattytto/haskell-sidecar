@@ -36,6 +36,7 @@ RUN cabal update && \
     
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
+RUN chown -R 1724:root /home/theia /opt 
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
