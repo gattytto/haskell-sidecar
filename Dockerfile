@@ -26,8 +26,10 @@ RUN cabal update && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server-Linux-8.10.2 && chmod +x /usr/bin/haskell-language-server-Linux-8.10.2 && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
+    wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
     rm -f *.gz && \
     git clone https://github.com/haskell/ghcide.git && cd ghcide && cabal install && cd .. && \
+    rm -rf ghcide && mv /root/.stack/* /home/theia/.stack/ && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
@@ -37,8 +39,6 @@ RUN cabal update && \
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
 RUN chown -R 1724:root /home/theia /home/theia/.cabal /home/theia/.stack /opt 
-
-RUN wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
