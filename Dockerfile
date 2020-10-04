@@ -38,5 +38,7 @@ ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
 RUN chown -R 1724:root /home/theia /home/theia/.cabal /home/theia/.stack /opt 
 
+RUN wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
