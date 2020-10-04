@@ -22,7 +22,7 @@ fi
 
 # Grant access to projects volume in case of non root user with sudo rights
 if [ "${USER_ID}" -ne 0 ] && command -v sudo >/dev/null 2>&1 && sudo -n true > /dev/null 2>&1; then
-    sudo chown -R "${USER_ID}:${GROUP_ID}" "/projects"
+    sudo chown -R "${USER_ID}:${GROUP_ID}" "/projects" "/home/theia/.stack" "/home/theia/.cabal" "/opt"
 fi
 
 exec "$@"
