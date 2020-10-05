@@ -13,7 +13,8 @@ ENV PATH /usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.loc
 
 RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
     mkdir /projects ${HOME} && \
-    mv /root/.stack /home/theia/.stack && \
+    cp -R /root/.stack /home/theia/.stack && \
+    rm -rf /root/.stack && \
     mkdir -p ${HOME}/.cabal && \
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
     chmod +x /usr/bin/ghcup 
