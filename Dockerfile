@@ -27,8 +27,9 @@ RUN cabal update && \
     gunzip haskell-language-server-Linux-8.10.2.gz -c > /usr/bin/haskell-language-server-Linux-8.10.2 && chmod +x /usr/bin/haskell-language-server-Linux-8.10.2 && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
-    rm -f *.gz && \
-    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
+    rm -f *.gz 
+    
+RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
     rm -rf ghcide && \
     cp -R /root/.stack/* /home/theia/.stack/* && \
     rm -rf /root/.stack && \
