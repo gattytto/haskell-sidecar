@@ -13,8 +13,7 @@ ENV PATH /usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.loc
 
 RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
     mkdir /projects ${HOME} && \
-    cp -R /root/.stack /home/theia/.stack && \
-    rm -rf /root/.stack && \
+    mkdir -p ${HOME}/.stack && \
     mkdir -p ${HOME}/.cabal && \
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
     chmod +x /usr/bin/ghcup 
@@ -31,6 +30,8 @@ RUN cabal update && \
     rm -f *.gz && \
     git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
     rm -rf ghcide && \
+    cp -R /root/.stack/* /home/theia/.stack/* && \
+    rm -rf /root/.stack && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
