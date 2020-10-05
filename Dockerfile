@@ -9,14 +9,17 @@ ENV STACK=2.3.3
 ENV STACK_KEY=C5705533DA4F78D8664B5DC0575159689BEFB442
 ENV STACK_RELEASE_KEY=2C6A674E85EE3FB896AFC9B965101FF31C5C154D
 
-ENV PATH /usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
+ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
 
 RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
+    rm -rf /root/.stack && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
     mkdir -p ${HOME}/.cabal && \
+    mkdir -p ${HOME}/.ghcup/bin && \
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
-    chmod +x /usr/bin/ghcup 
+    chmod +x /usr/bin/ghcup && \
+    ghcup install ghc ${GHC}
     
 RUN cabal update && \
     #cabal update --with-ghc ghc-tinfo6-8.6.4 && \
@@ -31,8 +34,6 @@ RUN cabal update && \
     
 RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
     rm -rf ghcide && \
-    cp -R /root/.stack/* /home/theia/.stack/* && \
-    rm -rf /root/.stack && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
