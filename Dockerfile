@@ -16,23 +16,22 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     mkdir -p ${HOME}/.ghcup/bin && \
     curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && \
     chmod +x /usr/bin/ghcup && \
-    ghcup install ghc ${GHC}
-    
-RUN cabal update && \
+    ghcup install ghc ${GHC} && \
+    cabal update && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-wrapper-Linux.gz && \
     gunzip haskell-language-server-Linux-${GHC} -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
-    rm -f *.gz 
-    
-RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --stack-yaml stack8101.yaml && cd .. && \
+    rm -f *.gz && \
+    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --stack-yaml stack8101.yaml && cd .. && \
     rm -rf ghcide && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
-    done
+    done 
+    
     
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
