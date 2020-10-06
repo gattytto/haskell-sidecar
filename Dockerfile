@@ -32,7 +32,7 @@ RUN cabal update && \
     wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
     rm -f *.gz 
     
-RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --stack-yaml stack810.yaml --resolver ghc-${GHC} && cd .. && \
+RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --resolver ghc-${GHC} && cd .. && \
     rm -rf ghcide && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
