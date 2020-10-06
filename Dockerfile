@@ -8,7 +8,7 @@ ENV HLS=0.5.0
 
 ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
 
-RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && apt remove -y ghc-${GHC} &&\
+RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && apt remove -y ghc-${GHC} && \
     rm -rf /root/.stack && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
