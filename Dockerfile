@@ -1,4 +1,4 @@
-FROM haskell:8.10.2-buster
+FROM haskell:8.10.1-buster
 
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
