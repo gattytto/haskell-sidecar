@@ -11,7 +11,7 @@ ENV STACK_RELEASE_KEY=2C6A674E85EE3FB896AFC9B965101FF31C5C154D
 
 ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
 
-RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
+RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && apt remove ghc-${GHC} &&\
     rm -rf /root/.stack && \
     mkdir /projects ${HOME} && \
     mkdir -p ${HOME}/.stack && \
@@ -32,7 +32,7 @@ RUN cabal update && \
     wget https://github.com/sol/hpack/releases/download/0.34.2/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
     rm -f *.gz 
     
-RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install && cd .. && \
+RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --stack-yaml stack810.yaml && cd .. && \
     rm -rf ghcide && \
     # Change permissions to let any arbitrary user
     for f in "${HOME}" "/etc/passwd" "/projects" "/opt"; do \
