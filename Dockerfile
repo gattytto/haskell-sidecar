@@ -21,9 +21,9 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     rm -f *.gz && \
     git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc --stack-yaml stack8101.yaml && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && \
-    cd haskell-dap && stack build --system-ghc && stack install && \
-    cd ghci-dap && stack build --system-ghc && stack install && \
-    rm -rf haskell-dap ghci-dap && stack install haskell-debug-adapter && \
+    cd haskell-dap && stack build --system-ghc && stack install --system-ghc && \
+    cd ghci-dap && stack build --system-ghc --resolver && stack install --system-ghc && \
+    rm -rf haskell-dap ghci-dap && stack install haskell-debug-adapter --system-ghc && \
     #stack install haskell-dap ghci-dap haskell-debug-adapter && \
     rm -rf ghcide && \
     # Change permissions to let any arbitrary user
