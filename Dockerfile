@@ -1,8 +1,8 @@
-FROM haskell:8.10.1-buster
+FROM haskell:8.10.2-buster
 
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
-ENV GHC=8.10.1
+ENV GHC=8.10.2
 ENV CABAL_INSTALL=3.2
 ENV HLS=0.5.0
 ENV HPACK=0.34.2
