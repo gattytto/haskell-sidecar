@@ -49,6 +49,8 @@ RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack instal
     # Change permissions to let any arbitrary user
     cabal update
     
+USER root    
+
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
 RUN chown -R 1724:root /home/theia /home/theia/.cabal /home/theia/.stack /opt 
