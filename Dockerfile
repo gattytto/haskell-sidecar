@@ -31,7 +31,7 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     wget https://github.com/sol/hpack/releases/download/${HPACK}/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
     rm -f *.gz && \
     chgrp -R ${gid} ${HOME} && \
-    chmod -R g+rwX ${HOME}
+    chmod -R g+rwX ${HOME} && \
     # Change permissions to let any arbitrary user
     for f in "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
