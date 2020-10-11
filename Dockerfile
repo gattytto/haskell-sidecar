@@ -12,18 +12,13 @@ ARG group=theia
 ARG uid=1000
 ARG gid=1000
 
+ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/usr/sbin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
+
 RUN groupadd -g ${gid} ${group} && \
-    useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} 
-
-ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
-
-RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
-    #apt remove -y ghc-${GHC} && \
+    useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} && \
+    apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
     rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack ${HOME}/.cabal && \
-    #${HOME}/.ghcup/bin && \
     cd ${HOME} && \
-    #curl https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup > /usr/bin/ghcup && chmod +x /usr/bin/ghcup && \
-    #ghcup install ghc ${GHC} && ghcup set ${GHC} && 
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-wrapper-Linux.gz && \
     gunzip haskell-language-server-Linux-${GHC} -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
@@ -49,8 +44,6 @@ RUN cd ${HOME} && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
     rm -rf haskell-dap ghci-dap hspec ghcide 
-    #stack install haskell-dap ghci-dap haskell-debug-adapter && \
-    # Change permissions to let any arbitrary user
     
 USER root    
 
