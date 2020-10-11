@@ -14,11 +14,14 @@ ARG gid=1000
 
 ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/usr/sbin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
 
+ADD stack8102.yaml /stack8102.yaml
+
 RUN groupadd -g ${gid} ${group} && \
     useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} && \
     apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
     rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack ${HOME}/.cabal && \
     cd ${HOME} && \
+    cp /stack8102.yaml . && rm -f /stack8102.yaml && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-wrapper-Linux.gz && \
     gunzip haskell-language-server-Linux-${GHC} -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
@@ -38,7 +41,7 @@ USER theia
 
 RUN cd ${HOME} && \
     cabal update && \
-    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc --stack-yaml stack8101.yaml && cd .. && \
+    git clone https://github.com/haskell/ghcide.git && cp stack8102.yaml ghcide/ && rm -f stack8102.yaml && cd ghcide && stack install --system-ghc --stack-yaml stack8102.yaml && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
