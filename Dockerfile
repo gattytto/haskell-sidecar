@@ -12,12 +12,11 @@ ARG group=theia
 ARG uid=1000
 ARG gid=1000
 
+ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/usr/sbin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
+
 RUN groupadd -g ${gid} ${group} && \
-    useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} 
-
-ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
-
-RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
+    useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} && \
+    apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
     rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack ${HOME}/.cabal && \
     cd ${HOME} && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
