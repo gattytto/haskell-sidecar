@@ -37,10 +37,12 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     for f in "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
       chmod -R g+rwX ${f}; \
-    done 
+    done
+    
 USER theia  
 
-RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc && cd .. && \
+RUN cd ${HOME} && \
+    git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
