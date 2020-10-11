@@ -30,12 +30,7 @@ RUN groupadd -g ${gid} ${group} && \
     rm -f *.gz && \
     chgrp -R ${gid} ${HOME} && \
     chmod -R g+rwX ${HOME} && \
-    chown -R ${user}:${group} ${HOME} && \
-    # Change permissions to let any arbitrary user
-    for f in "/etc/passwd" "/projects" "/opt"; do \
-      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
-      chmod -R g+rwX ${f}; \
-    done
+    chown -R ${user}:${group} ${HOME} 
     
 USER theia  
 
@@ -43,6 +38,17 @@ RUN cd ${HOME} && \
     cabal update && \
     git clone https://github.com/haskell/ghcide.git && cp stack8102.yaml ghcide/ && rm -f stack8102.yaml && cd ghcide && stack install --system-ghc --stack-yaml stack8102.yaml && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
+    echo $' \n\
+    resolver: ghc-8.10.2 \n\
+    packages: \n\
+    - . \n\ ' > ${HOME}/haskell-dap/stack.yaml && \
+    echo $' \n\
+    resolver: ghc-8.10.2 \n\
+    packages: \n\
+    - . \n\
+    extra-deps: \n\
+    - ../haskell-dap \n\
+    - ghc-paths-0.1.0.12 \n\ ' > ${HOME}/ghci-dap/stack.yaml && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
@@ -52,7 +58,10 @@ USER root
 
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
-RUN chown -R 1724:root /home/theia /home/theia/.cabal /home/theia/.stack /opt 
+RUN for f in "/etc/passwd" "/projects" "/opt" "/home/theia"; do \
+      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
+      chmod -R g+rwX ${f}; \
+    done 
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
