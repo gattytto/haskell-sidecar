@@ -27,12 +27,7 @@ RUN groupadd -g ${gid} ${group} && \
     rm -f *.gz && \
     chgrp -R ${gid} ${HOME} && \
     chmod -R g+rwX ${HOME} && \
-    chown -R ${user}:${group} ${HOME} && \
-    # Change permissions to let any arbitrary user
-    for f in "/etc/passwd" "/projects" "/opt"; do \
-      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
-      chmod -R g+rwX ${f}; \
-    done
+    chown -R ${user}:${group} ${HOME} 
     
 USER theia  
 
@@ -49,7 +44,10 @@ USER root
 
 ADD etc/entrypoint.sh /entrypoint.sh
 ADD etc/settings.yaml /home/theia/.stack/config.yaml
-RUN chown -R 1724:root /home/theia /home/theia/.cabal /home/theia/.stack /opt 
+RUN for f in "/etc/passwd" "/projects" "/opt" "/home/theia"; do \
+      echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
+      chmod -R g+rwX ${f}; \
+    done 
 
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}
