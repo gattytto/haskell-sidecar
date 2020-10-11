@@ -38,17 +38,15 @@ RUN cd ${HOME} && \
     cabal update && \
     git clone https://github.com/haskell/ghcide.git && cp stack8102.yaml ghcide/ && rm -f stack8102.yaml && cd ghcide && stack install --system-ghc --stack-yaml stack8102.yaml && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
-    echo $' \n\
-    resolver: ghc-8.10.2 \n\
-    packages: \n\
-    - . \n\ ' > ${HOME}/haskell-dap/stack.yaml && \
-    echo $' \n\
-    resolver: ghc-8.10.2 \n\
-    packages: \n\
-    - . \n\
-    extra-deps: \n\
-    - ../haskell-dap \n\
-    - ghc-paths-0.1.0.12 \n\ ' > ${HOME}/ghci-dap/stack.yaml && \
+    echo "resolver: ghc-${GHC}" > ${HOME}/haskell-dap/stack.yaml && \
+    echo "packages: " >> ${HOME}/haskell-dap/stack.yaml && \
+    echo "- ." >> ${HOME}/haskell-dap/stack.yaml && \
+    echo "resolver: ghc-${GHC}" > ${HOME}/ghci-dap/stack.yaml && \
+    echo "packages: " >> ${HOME}/ghci-dap/stack.yaml && \
+    echo "- ." >> ${HOME}/ghci-dap/stack.yaml && \
+    echo "extra-deps: " >> ${HOME}/ghci-dap/stack.yaml && \
+    echo "- ../haskell-dap" >> ${HOME}/ghci-dap/stack.yaml && \
+    echo "- ghc-paths-0.1.0.12" >> ${HOME}/ghci-dap/stack.yaml && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
