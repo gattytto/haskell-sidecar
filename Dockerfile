@@ -32,6 +32,7 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     rm -f *.gz && \
     chgrp -R ${gid} ${HOME} && \
     chmod -R g+rwX ${HOME} && \
+    chown -R ${user}:${group} ${HOME} && \
     # Change permissions to let any arbitrary user
     for f in "/etc/passwd" "/projects" "/opt"; do \
       echo "Changing permissions on ${f}" && chgrp -R 0 ${f} && \
