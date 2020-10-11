@@ -42,15 +42,15 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
 USER theia  
 
 RUN cd ${HOME} && \
+    cabal update && \
     git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
-    rm -rf haskell-dap ghci-dap hspec ghcide && \
+    rm -rf haskell-dap ghci-dap hspec ghcide 
     #stack install haskell-dap ghci-dap haskell-debug-adapter && \
     # Change permissions to let any arbitrary user
-    cabal update
     
 USER root    
 
