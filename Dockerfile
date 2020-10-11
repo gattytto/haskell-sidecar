@@ -40,7 +40,7 @@ RUN apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev 
     done 
 USER theia  
 
-RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc --stack-yaml stack8101.yaml && cd .. && \
+RUN git clone https://github.com/haskell/ghcide.git && cd ghcide && stack install --system-ghc && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
