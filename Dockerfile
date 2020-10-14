@@ -25,6 +25,8 @@ RUN groupadd -g ${gid} ${group} && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     wget https://github.com/sol/hpack/releases/download/${HPACK}/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
     rm -f *.gz && \
+    echo "packages: []" > ${HOME}/.stack/global-project/stack.yaml && \
+    echo "resolver: ghc-${GHC}" >> ${HOME}/.stack/global-project/stack.yaml && \
     chgrp -R ${gid} ${HOME} && \
     chmod -R g+rwX ${HOME} && \
     chown -R ${user}:${group} ${HOME} 
