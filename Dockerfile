@@ -19,7 +19,7 @@ ADD stack8102.yaml /stack8102.yaml
 RUN groupadd -g ${gid} ${group} && \
     useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} && \
     apt update && apt install -y wget sudo libicu-dev libncurses-dev libgmp-dev zlib1g-dev vim bash && \
-    rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack ${HOME}/.cabal && \
+    rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack/global-project ${HOME}/.cabal && \
     cd ${HOME} && \
     cp /stack8102.yaml . && rm -f /stack8102.yaml && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
