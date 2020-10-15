@@ -14,7 +14,7 @@ ARG gid=1000
 
 ENV PATH ${HOME}/.ghcup/bin:/usr/bin:/usr/sbin:/bin:/local/bin:/usr/local/bin:${HOME}/.cabal/bin:${HOME}/.local/bin:/opt/cabal/${CABAL_INSTALL}/bin:/opt/ghc/${GHC}/bin
 
-ADD stack8102.yaml /stack8102.yaml
+ADD etc/stack8102.yaml /stack8102.yaml
 
 RUN groupadd -g ${gid} ${group} && \
     useradd -u ${uid} -g ${group} -s /bin/sh -m ${user} && \
