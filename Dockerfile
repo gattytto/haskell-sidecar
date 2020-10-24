@@ -40,7 +40,7 @@ RUN cd ${HOME} && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
-    rm -rf haskell-dap ghci-dap hspec ghcide 
+    rm -rf haskell-dap ghci-dap hspec ghcide && cabal install aeson-1.5.4.1 --lib --ghc-options="-j1"
     
 USER root    
 
