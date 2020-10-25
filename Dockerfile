@@ -42,7 +42,7 @@ RUN cd ${HOME} && \
     cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
     rm -rf haskell-dap ghci-dap hspec ghcide
  
-RUN stack install aeson-1.5.4.1 --ghc-options="-j1"
+RUN stack install aeson-1.5.4.1 --system-ghc --resolver ghc-${GHC} --ghc-options="-j1"
     
 USER root    
 
