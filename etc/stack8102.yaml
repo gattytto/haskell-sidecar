@@ -10,6 +10,7 @@ extra-deps:
 - hie-bios-0.7.1
 
 # not yet in stackage
+- hie-compat-0.1.0.0
 - Chart-diagrams-1.9.3
 - SVGFonts-1.7.0.1
 - diagrams-1.4
