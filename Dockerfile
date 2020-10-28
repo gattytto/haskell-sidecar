@@ -37,7 +37,7 @@ RUN groupadd -g ${gid} ${group} && \
 USER theia  
 
 RUN cd ${HOME} && \
-    cabal update && \
+    cabal update && stack upgrade && \
     git clone https://github.com/haskell/ghcide.git && cp stack8102.yaml ghcide/ && rm -f stack8102.yaml && cd ghcide && stack install --system-ghc --stack-yaml stack8102.yaml && cd .. && \
     git clone https://github.com/phoityne/ghci-dap.git && git clone https://github.com/phoityne/haskell-dap.git && git clone https://github.com/hspec/hspec && \
     echo "resolver: ghc-${GHC}" > ${HOME}/haskell-dap/stack.yaml && \
