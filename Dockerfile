@@ -51,9 +51,8 @@ RUN cd ${HOME} && \
     echo "- ghc-paths-0.1.0.12" >> ${HOME}/ghci-dap/stack.yaml && \
     cd haskell-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
     cd ghci-dap && stack build --system-ghc && stack install --system-ghc && cd .. && \
-    cd hspec && cabal install --lib && cabal install hspec-discover && cd .. && \
+    cd hspec && cabal install --lib && cabal install hspec-discover haskell-debug-adapter phoityne-vscode && cd .. && \
     rm -rf haskell-dap ghci-dap hspec ghcide && \
-    cabal install haskell-dap ghci-dap haskell-debug-adapter phoityne-vscode
     
 USER root    
 
