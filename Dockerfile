@@ -1,4 +1,4 @@
-FROM gattytto/docker-haskell:latest
+FROM quay.io/gattytto/docker-haskell:latest
 
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
