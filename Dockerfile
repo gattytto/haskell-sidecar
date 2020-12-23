@@ -1,8 +1,8 @@
-FROM haskell:8.10.2-buster
+FROM gattytto/docker-haskell:latest
 
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
-ENV GHC=8.10.2
+ENV GHC=8.10.3
 ENV CABAL_INSTALL=3.2
 ENV HLS=0.5.0
 ENV HPACK=0.34.2
@@ -22,9 +22,11 @@ RUN groupadd -g ${gid} ${group} && \
     rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack/global-project ${HOME}/.cabal && \
     cd ${HOME} && \
     cp /stack8102.yaml . && rm -f /stack8102.yaml && \
-    wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
+    git clone https://github.com/haskell-language-server --recurse-submodules && cd haskell-language-server && \
+    stack install --system-ghc && \
+    #wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-wrapper-Linux.gz && \
-    gunzip haskell-language-server-Linux-${GHC} -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
+    #gunzip haskell-language-server-Linux-${GHC} -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
     gunzip haskell-language-server-wrapper-Linux.gz -c > /usr/bin/haskell-language-server-wrapper && chmod +x /usr/bin/haskell-language-server-wrapper && \
     wget https://github.com/sol/hpack/releases/download/${HPACK}/hpack_linux.gz && gunzip hpack_linux.gz -c > /usr/bin/hpack && chmod +x /usr/bin/hpack && \
     rm -f *.gz && \
