@@ -22,8 +22,8 @@ RUN groupadd -g ${gid} ${group} && \
     rm -rf /root/.stack && mkdir -p /projects ${HOME}/.stack/global-project ${HOME}/.cabal && \
     cd ${HOME} && \
     cp /stack8102.yaml . && rm -f /stack8102.yaml && \
-    git clone https://github.com/haskell/haskell-language-server --recurse-submodules && cd haskell-language-server && \
-    stack install --system-ghc &&  cd .. && rm -rf haskell-language-server && \
+    git clone https://github.com/gattytto/haskell-language-server --recurse-submodules && cd haskell-language-server && \
+    stack install --system-ghc --stack-yaml=stack-8.10.3.yaml &&  cd .. && rm -rf haskell-language-server && \
     #wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-Linux-${GHC}.gz && \
     wget https://github.com/haskell/haskell-language-server/releases/download/${HLS}/haskell-language-server-wrapper-Linux.gz && \
     #gunzip haskell-language-server-Linux-${GHC} -c > /usr/bin/haskell-language-server && chmod +x /usr/bin/haskell-language-server && \
