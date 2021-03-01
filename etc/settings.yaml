@@ -1,1 +1,2 @@
 allow-different-user: true
+system-ghc: true 
