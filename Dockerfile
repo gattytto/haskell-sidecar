@@ -9,7 +9,7 @@
 #   Red Hat, Inc. - initial API and implementation
 #   Esteban Mañaricua
 
-FROM haskell:8.10.2-buster
+FROM quay.io/gattytto/haskell8103:latest
 
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
