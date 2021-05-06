@@ -9,13 +9,12 @@
 #   Red Hat, Inc. - initial API and implementation
 #   Esteban Mañaricua
 
-FROM quay.io/gattytto/haskell8103:latest
-
+FROM haskell:8.10.4-buster
 ENV HOME=/home/theia
 ENV STACK_ROOT=${HOME}/.stack
-ENV GHC=8.10.3
-ENV CABAL_INSTALL=3.2
-ENV HLS=1.0.0
+ENV GHC=8.10.4
+ENV CABAL_INSTALL=3.4
+ENV HLS=1.1.0
 ENV HPACK=0.34.2
 
 ARG user=theia
